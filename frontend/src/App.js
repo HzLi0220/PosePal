@@ -6,6 +6,7 @@ import Home from './pages';
 import Newsession from './pages/newsession';
 import SignUp from './pages/signup';
 import History from './pages/history';
+import SummaryBoard from "./pages/SummaryBoard";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/newsession' element={<Newsession />} />
         <Route path='/history' element={<History />} />
         <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/summary' element={<SummaryBoard />} />
       </Routes>
     </Router>
   );
