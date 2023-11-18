@@ -16,9 +16,9 @@ const Login = () => {
         body: JSON.stringify({ email, password })
       });
       const data = await response.json();
-      console.log(data);
-      if (data && data.token) {
+      if (data && data.token && data.user) {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
       }
     } catch (error) {
       console.error(error);

@@ -7,10 +7,14 @@ const History = () => {
     const navigate = useNavigate(); // useNavigate instead of useHistory
 
     useEffect(() => {
-        const token = localStorage.getItem('token'); 
-
+        const token = localStorage.getItem('token');
+        const user = localStorage.getItem('user');
         if (!token) {
             navigate('/sign-up'); // use navigate for redirection
+            return;
+        }
+        if (user) {
+            setUserData(JSON.parse(user));
             return;
         }
         fetch(`${process.env.REACT_APP_API_URL}/api/users/user`, {
