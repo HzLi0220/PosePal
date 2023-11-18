@@ -17,7 +17,9 @@ const Login = () => {
       });
       const data = await response.json();
       console.log(data);
-      // Handle response or redirect user
+      if (data && data.token) {
+        localStorage.setItem('token', data.token);
+      }
     } catch (error) {
       console.error(error);
       // Handle error
