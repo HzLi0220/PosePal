@@ -1,18 +1,22 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import {useLocation} from 'react-router-dom';
 import SoundButton from "./SoundButton";
+
 function CameraComponent() {
 
     //stuff about the counter
 
-    const [counter, setCounter] = useState(0);
+    const [counter, setCounter] = useState(1800);
     const [intervalId, setIntervalId] = useState(null);
+    const [isPaused, setIsPaused] = useState(false);
+
 
     // Start counter
     const startCounter = () => {
         if (!intervalId) {
             const id = setInterval(() => {
-                setCounter(prevCounter => prevCounter + 1);
+                setCounter(prevCounter => prevCounter -1 );
             }, 1000);
             setIntervalId(id);
         }
@@ -20,10 +24,15 @@ function CameraComponent() {
 
     // Pause counter
     const pauseCounter = () => {
-        if (intervalId) {
-            clearInterval(intervalId);
-            setIntervalId(null);
+        if(isPaused){
+            startCounter()
+        }else {
+            if (intervalId) {
+                clearInterval(intervalId);
+                setIntervalId(null);
+            }
         }
+        setIsPaused(!isPaused)
     };
 
     // Stop counter and reset
@@ -35,6 +44,12 @@ function CameraComponent() {
         setCounter(0);
     };
 
+    useEffect(() => {
+        if (counter === -1){
+            stop()
+            alert("time is out")
+        }
+    },[counter,intervalId]);
     // Cleanup interval on component unmount
     useEffect(() => {
         return () => {
@@ -80,12 +95,16 @@ function CameraComponent() {
         }
 
         if(location.pathname === '/newsession'){
-        getVideo();}
+            getVideo();}
     }, [videoRef]);
 
+    const pause = () => {
+        pauseCounter();
+        togglePlayback();
+
+    }
     const start = () => {
         startCounter();
-
     }
     const stop = () => {
         stopCamera();
@@ -110,6 +129,13 @@ function CameraComponent() {
             setIsPlaying(!isPlaying);
         }
     };
+
+    const formatTime = () => {
+        const minutes = Math.floor( counter/ 60);
+        const seconds = counter % 60;
+        return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+    };
+
 
     return (
         <div style={{ position: 'relative', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
@@ -137,17 +163,21 @@ function CameraComponent() {
                     Stop
                 </button>
                 <button
-                    onClick={togglePlayback}
+                    onClick={pause}
                     style={buttonStyle}>
                     {isPlaying ? 'Pause' : 'Resume'}
                 </button>
                 <SoundButton />
             </div>
             <div>
-                <h1>Counter: {counter}</h1>
+                <h1>{formatTime()}</h1>
             </div>
         </div>
     );
 }
 
 export default CameraComponent;
+
+
+
+
