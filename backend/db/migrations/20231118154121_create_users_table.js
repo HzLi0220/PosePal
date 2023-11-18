@@ -8,6 +8,7 @@ exports.up = function (knex) {
     table.string('email').notNullable().unique();
     table.string('password').notNullable();
     table.string('username').notNullable();
+    table.timestamp('start_time').nullable();
     table.text('history'); // Storing history as text
   });
 };
