@@ -31,17 +31,24 @@ const loginService = async (email, password) => {
   return { user, token };
 };
 
-const startService = async (id, startTime) => {
-  return updateDao.updateUser(id, 'start_time', startTime);
-};
-
-const endService = async (id, endTime) => {
+const addHistoryService = async (id, duration, detection_count) => {
   const user = await userDao.getUser('id', id);
-  const startTime = user.start_time;
-  const duration = endTime - startTime;
   const history = JSON.parse(user.history);
-  history.push(duration);
+  history.push({ duration, detection_count });
   return userDao.updateUser(id, 'history', JSON.stringify(history));
 };
 
-module.exports = { createUserService, getUserInfoService, loginService, startService, endService };
+// const startService = async (id, startTime) => {
+//   return updateDao.updateUser(id, 'start_time', startTime);
+// };
+
+// const endService = async (id, endTime) => {
+//   const user = await userDao.getUser('id', id);
+//   const startTime = user.start_time;
+//   const duration = endTime - startTime;
+//   const history = JSON.parse(user.history);
+//   history.push(duration);
+//   return userDao.updateUser(id, 'history', JSON.stringify(history));
+// };
+
+module.exports = { createUserService, getUserInfoService, loginService, addHistoryService };

@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
@@ -142,6 +143,7 @@ function CameraComponent() {
         }
     };
 
+
     //detection logic
     const [distanceMessage, setDistanceMessage] = useState("Ready to go");
     const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -278,3 +280,7 @@ function CameraComponent() {
 }
 
 export default CameraComponent;
+
+
+
+
