@@ -65,6 +65,11 @@ PosePal is a web application designed to encourage healthy screen habits. It mon
 
   - Runs the app in the development mode.
   - You can start making http calls to [http://localhost:3001](http://localhost:3001)
+  - you may need to change `filename`to `'./dev.sqlite3'` before doing that
+
+  ##### `npm run migrate`
+
+  - you may need to change `filename`to `'./db/dev.sqlite3'` before doing that
 
 - Running Frontend React JS Application:
 

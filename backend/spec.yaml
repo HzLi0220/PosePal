@@ -71,7 +71,29 @@ paths:
         '200':
           description: Login successful
         '401':
-          description: Authentication failed 
+          description: Authentication failed
+  /api/users/history:
+    post:
+      summary: Add a new history record
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                duration:
+                  type: string
+                  format: email
+                detection_count:
+                  type: string
+      responses:
+        '200':
+          description: User information retrieved successfully
+        '401':
+          description: Unauthorized
 components:
   securitySchemes:
     bearerAuth:

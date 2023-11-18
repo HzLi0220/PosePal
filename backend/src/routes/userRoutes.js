@@ -9,6 +9,8 @@ router.get('/user', authMiddleware.checkAuth, userController.getUserInfoControll
 
 router.post('/login', userController.loginController);
 
+router.post('/history', authMiddleware.checkAuth, userController.addHistoryController);
+
 // router.get('/start', authMiddleware.checkAuth, userController.startController);
 
 // router.get('/end', authMiddleware.checkAuth, userController.endController);
