@@ -7,13 +7,16 @@
     "start": "knex migrate:latest --knexfile db/knexfile.js && node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "knex migrate:latest --knexfile db/knexfile.js",
-    "migrate:make": "knex migrate:make --migrations-directory ./db/migrations"
+    "migrate:make": "knex migrate:make --migrations-directory ./db/migrations",
+    "migrate:rollback": "knex migrate:rollback --knexfile db/knexfile.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "knex": "^3.0.1",
     "sqlite3": "^5.1.6",
     "swagger-ui-express": "^5.0.0",
