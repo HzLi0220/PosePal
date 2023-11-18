@@ -1,9 +1,9 @@
 import React from 'react';
-
+import SummaryBoard from "./SummaryBoard";
 const SignUp = () => {
     return (
         <div>
-            <h1>Sign Up Successful</h1>
+            <SummaryBoard/>
         </div>
     );
 };
