@@ -9,4 +9,9 @@ router.get('/user', authMiddleware.checkAuth, userController.getUserInfoControll
 
 router.post('/login', userController.loginController);
 
+// router.get('/start', authMiddleware.checkAuth, userController.startController);
+
+// router.get('/end', authMiddleware.checkAuth, userController.endController);
+
+
 module.exports = router;

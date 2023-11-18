@@ -28,4 +28,26 @@ const loginController = async (req, res) => {
   }
 };
 
-module.exports = { createUserController, getUserInfoController, loginController };
+const startController = async (req, res) => {
+  try {
+    const { id } = req.userData;
+    const startTime = new Date();
+    const result = await userService.startService(id, startTime);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const endController = async (req, res) => {
+  try {
+    const { id } = req.userData;
+    const endTime = new Date();
+    const result = await userService.endService(id, endTime);
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+module.exports = { createUserController, getUserInfoController, loginController, startController, endController };
