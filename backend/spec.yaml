@@ -1,0 +1,5 @@
+openapi: 3.0.0
+info:
+  description: "This is the sever spec for posepal backend."
+  version: 1.0.0
+  title: "Posepal Backend API"
