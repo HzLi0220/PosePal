@@ -26,6 +26,7 @@ paths:
           description: User created successfully
         "400":
           description: Invalid input
+  /api/users/user:
     get:
       summary: Get user information
       security:

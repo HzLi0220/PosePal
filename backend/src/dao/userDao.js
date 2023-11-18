@@ -13,4 +13,9 @@ const getUser = async (column, value) => {
   return db('users').where(column, value).first();
 };
 
+const updateUser = async (id, column, value) => {
+  return db('users').where('id', id).update({ column: value });
+};
+
+
 module.exports = { createUser, getUser };
