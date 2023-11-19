@@ -31,8 +31,8 @@ const loginController = async (req, res) => {
 const addHistoryController = async (req, res) => {
   try {
     const { id } = req.userData;
-    const { duration, detection_count } = req.body;
-    const result = await userService.addHistoryService(id, duration, detection_count);
+    const { duration, percentage } = req.body;
+    const result = await userService.addHistoryService(id, duration, percentage);
     res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });

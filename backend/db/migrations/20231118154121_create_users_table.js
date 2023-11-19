@@ -10,7 +10,7 @@ exports.up = function (knex) {
     table.string('username').notNullable();
     table.timestamp('start_time').nullable();
     table.text('history'); // Storing history as text
-    //history = {duration, detection_count}
+    //history = {duration, percentage}
   });
 };
 

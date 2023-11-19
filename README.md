@@ -33,9 +33,9 @@ PosePal is a web application designed to encourage healthy screen habits. It mon
 
 ## Tech Stack
 
-*   **Frontend:** [React](https://reactjs.org/)
-*   **Backend:** [NodeJS](https://nodejs.org/en/docs)/[ExpressJS](https://expressjs.com/)
-*   **Database:** [Sqlite](https://www.sqlite.org/)
+*   **Frontend:** [React](https://reactjs.org/), [Tailwindcss](https://tailwindcss.com/)
+*   **Backend:** [NodeJS](https://nodejs.org/en/docs)/[ExpressJS](https://expressjs.com/), [Knex](https://knexjs.org/)
+*   **Database:** [SQLite](https://www.sqlite.org/)
 
 ## Getting Started
 
@@ -65,11 +65,13 @@ PosePal is a web application designed to encourage healthy screen habits. It mon
 
   - Runs the app in the development mode.
   - You can start making http calls to [http://localhost:3001](http://localhost:3001)
-  - you may need to change `filename`to `'./dev.sqlite3'` before doing that
+  - you may need to change `filename`to `'./dev.sqlite3'` in  `knexfile` before doing that
 
   ##### `npm run migrate`
 
-  - you may need to change `filename`to `'./db/dev.sqlite3'` before doing that
+  - you may need to change `filename`to `'./db/dev.sqlite3'` in  `knexfile` before doing that
+
+  #### change `.env.development` to  `.env`
 
 - Running Frontend React JS Application:
 
@@ -88,6 +90,8 @@ PosePal is a web application designed to encourage healthy screen habits. It mon
 
   - The page will reload if you make edits.
   - You will also see any lint errors in the console.
+
+  #### change `.env.development` to  `.env`
 
 ## Roadmap
 

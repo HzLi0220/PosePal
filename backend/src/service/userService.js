@@ -31,10 +31,10 @@ const loginService = async (email, password) => {
   return { user, token };
 };
 
-const addHistoryService = async (id, duration, detection_count) => {
+const addHistoryService = async (id, duration, percentage) => {
   const user = await userDao.getUser('id', id);
   const history = JSON.parse(user.history);
-  history.push({ duration, detection_count });
+  history.push({ duration, percentage });
   return userDao.updateUser(id, 'history', JSON.stringify(history));
 };
 

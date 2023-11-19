@@ -5,53 +5,35 @@ import Nav from '../components/Navbar.ln/Nav';
 import AboutComponent from '../components/AboutComponent';
 
 const HistoryPage = () => {
-    const [userData, setUserData] = useState(null);
-    const navigate = useNavigate(); // useNavigate instead of useHistory
+    const user = JSON.parse(localStorage.getItem('user'))
+    const navigate = useNavigate();
 
     useEffect(() => {
         const token = localStorage.getItem('token');
-        const user = localStorage.getItem('user');
         if (!token) {
             alert("you are not signed in yet \nplease become a user before any further action:>");
-            navigate('/sign-up'); // use navigate for redirection
+            navigate('/sign-up');
             return;
         }
-        if (user) {
-            setUserData(JSON.parse(user));
-            return;
-        }
-        fetch(`${process.env.REACT_APP_API_URL}/api/users/user`, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            setUserData(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
     }, [navigate]);
 
-    if (!userData) {
-        return <div>Loading...</div>;
+    // Conditional rendering
+    let historyItems = null;
+    console.log(user)
+    console.log(user.history)
+    if (user && user.history) { // Check if userData and userData.history are not null
+        historyItems = JSON.parse(user.history).map((item, index) => (
+            <HistoryCard key={index} duration={item.duration} percentage={item.percentage} />
+        ));
     }
-    
-    const historyItems = JSON.parse(userData.history).map((item, index) => (
-        <HistoryCard key={index} duration={item.duration} detectionCount={item.detection_count} />
-    ));
 
     return (
-        <div className="bg-blue h-screen">
+        <div className="bg-blue">
             <AboutComponent></AboutComponent>
             <div className="pt-7">
                 <Nav></Nav>
             </div>
-            <div  >{historyItems}</div>
+            <div>{historyItems}</div>
         </div>
     );
 };

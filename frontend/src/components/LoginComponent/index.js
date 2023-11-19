@@ -6,10 +6,6 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleMain = () =>{
-    navigate('/');
-  }
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(JSON.stringify({ email, password }))
@@ -27,6 +23,7 @@ const Login = () => {
         localStorage.setItem('user', JSON.stringify(data.user));
         alert('log in successful')
       }
+      navigate('/newsession');
     } catch (error) {
       console.error(error);
       alert('log in unsuccessful')
@@ -55,7 +52,7 @@ const Login = () => {
         />
       </div>
       <div>
-        <button onClick={handleMain} type="submit" className="w-44 border bg-yellow-300 px-5 py-2 rounded-lg">
+        <button type="submit" className="w-44 border bg-yellow-300 px-5 py-2 rounded-lg">
           LOGIN
         </button>
       </div>
