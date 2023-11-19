@@ -12,6 +12,7 @@ const HistoryPage = () => {
         const token = localStorage.getItem('token');
         const user = localStorage.getItem('user');
         if (!token) {
+            alert("you are not signed in yet \nplease become a user before any further action:>");
             navigate('/sign-up'); // use navigate for redirection
             return;
         }

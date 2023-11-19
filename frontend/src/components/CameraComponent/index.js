@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
-import Nav from "../Navbar.ln/Nav";
 
 
 function CameraComponent() {
