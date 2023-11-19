@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const handleMain = () =>{
+    navigate('/');
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,9 +25,11 @@ const Login = () => {
       if (data && data.token && data.user) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
+        alert('log in successful')
       }
     } catch (error) {
       console.error(error);
+      alert('log in unsuccessful')
       // Handle error
     }
   };
@@ -47,7 +55,7 @@ const Login = () => {
         />
       </div>
       <div>
-        <button type="submit" className="w-44 border bg-yellow-300 px-5 py-2 rounded-lg">
+        <button onClick={handleMain} type="submit" className="w-44 border bg-yellow-300 px-5 py-2 rounded-lg">
           LOGIN
         </button>
       </div>
