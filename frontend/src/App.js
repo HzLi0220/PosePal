@@ -8,6 +8,7 @@ import SignUp from './pages/SignUpPage';
 import History from './pages/HistoryPage';
 import SummaryBoard from "./components/SummaryBoardComponent";
 import "nes.css/css/nes.min.css";
+import HistoryPage from "./pages/HistoryPage";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <Routes>
         <Route exact path='/' element={<HomePage />} />
         <Route path='/newsession' element={<NewSession />} />
-        <Route path='/history' element={<History />} />
+        <Route path='/history' element={<HistoryPage />} />
         <Route path='/sign-up' element={<SignUp />} />
           <Route path='/summary' element={<SummaryBoard />} />
       </Routes>
