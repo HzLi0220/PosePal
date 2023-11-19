@@ -242,14 +242,12 @@ function CameraComponent() {
     };
 
     return (
-        <>
-            <Nav/>
-        <div style={{ position: 'relative', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
+        <div style={{fontFamily: 'Monomaniac One', color :'white' }}>
             {error ? (
                 <p>{error}</p>
             ) : (
 
-                <div style={{ width: '350px', height: '350px', borderRadius: '60%', overflow: 'hidden' }}>
+                <div style={{padding:'10px',height:'40vh',borderRadius: '20%', overflow: 'hidden' }}>
 
                     <video
                         ref={videoRef}
@@ -259,8 +257,8 @@ function CameraComponent() {
                     />
                 </div>
             )}
-            <div>
-                <select name="times" id="time-select" onChange={handleSelectChange} value={selectedTime}>
+            <div style={{padding:'10px'}}>
+                <select style={{color :'black' }} name="times" id="time-select" onChange={handleSelectChange} value={selectedTime}>
                     <option value="">Select an option</option>
                     <option value="10">10:00</option>
                     <option value="20">20:00</option>
@@ -281,12 +279,13 @@ function CameraComponent() {
                 </button>
             </div>
             <div>
-                <h1>{formatTime()}</h1>
+                <div style={{ alignItems:'center',fontSize: '80px' }}>{formatTime()}</div>
+
                 <h2>{distanceMessage}</h2>
             </div>
             <audio ref = {audioRef} src = "nana.mp3" preload = "auto"></audio>
         </div>
-        </>
+
 
     );
 }
