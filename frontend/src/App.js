@@ -7,11 +7,11 @@ import NewSession from './pages/NewSessionPage';
 import SignUp from './pages/SignUpPage';
 import History from './pages/HistoryPage';
 import SummaryBoard from "./components/SummaryBoardComponent";
+import "nes.css/css/nes.min.css";
 
 function App() {
   return (
     <Router>
-      <Navbar />
       <Routes>
         <Route exact path='/' element={<HomePage />} />
         <Route path='/newsession' element={<NewSession />} />
