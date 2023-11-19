@@ -17,6 +17,9 @@ const Register = () => {
       });
       const data = await response.json();
       console.log(data);
+      alert(
+        'You have successfully registered. Please login to continue.'
+      )
       // Handle response or redirect user
     } catch (error) {
       console.error(error);
@@ -27,7 +30,7 @@ const Register = () => {
   return (
     <form onSubmit={handleSubmit} className="bg-white h-full w-full rounded-2xl bg-white/50 flex flex-col justify-evenly items-center">
       <div className='flex text-2xl items-center'>
-        <p className="text-gray-700 pr-3">Username: </p>
+        <p className="text-gray-700 pr-3 pr-10 my-auto">Username: </p>
         <input
           type="text"
           value={username}
@@ -36,7 +39,7 @@ const Register = () => {
         />
       </div>
       <div className='flex text-2xl items-center'>
-        <p className="text-gray-700 pr-3">Email: </p>
+        <p className="text-gray-700 pr-3 pr-20 my-auto">Email: </p>
         <input
           type="email"
           value={email}
@@ -45,7 +48,7 @@ const Register = () => {
         />
       </div>
       <div className='flex text-2xl items-center'>
-        <p className="text-gray-700 pr-3">Password: </p>
+        <p className="text-gray-700 pr-3 pr-10 my-auto">Password: </p>
         <input
           type="password"
           value={password}

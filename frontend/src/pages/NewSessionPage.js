@@ -9,7 +9,7 @@ const NewSession = () => {
         <AboutComponent/>
         <div className='pt-5'><Nav/></div>
 
-        <div className="flex items-center justify-center flex w-full flex justify-evenly">
+        <div className="flex items-center justify-center flex w-full flex justify-evenly mt-10">
             <CameraComponent />
         </div>
 

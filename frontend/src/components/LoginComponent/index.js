@@ -34,7 +34,7 @@ const Login = () => {
   return (
     <form onSubmit={handleSubmit} className="bg-white h-full w-full rounded-2xl bg-white/50 flex flex-col justify-evenly items-center">
       <div className='flex text-2xl items-center'>
-        <p className="text-gray-700 pr-3">Email:</p>
+        <p className="text-gray-700 pr-10 my-auto">Email:</p>
         <input
           type="email"
           value={email}
@@ -43,7 +43,7 @@ const Login = () => {
         />
       </div>
       <div className='flex text-2xl items-center'>
-        <div className="text-gray-700 pr-3">Password:</div>
+        <div className="text-gray-700 pr-3 my-auto">Password:</div>
         <input
           type="password"
           value={password}

@@ -12,7 +12,7 @@ const SummaryBoard = () => {
   let violationCount = location.state?.violation_Count;
 
   const handleClose = () => {
-    navigate('/');
+    navigate('/newsession');
   };
 
   useEffect(() => {
@@ -29,17 +29,15 @@ const SummaryBoard = () => {
       </div>
 
       <div className="flex justify-center items-center h-full">
-        <div className='bg-white bg-opacity-80 rounded-lg shadow-lg p-5 m-5 w-full max-w-xl '>
+        <div className='bg-white bg-opacity-80 rounded-lg shadow-lg p-5 m-5 w-full max-w-xl h-1/2 w-2/3 flex flex-col justify-evenly items-center'>
           <h2 className='text-4xl font-monomaniac font-bold mb-4 text-center text-white'>SUMMARY BOARD</h2>
           <p className='text-xl font-monomaniac text-left text-white'>TIME of COMPLETION: {remainingTime}</p>
           <p className='text-xl font-monomaniac text-left text-white'>PERCENTAGE of BAD POSTURE: {violationCount.toFixed(2) + '%'}</p>
-          <div className='w-full flex justify-center'>
-            <button
-              onClick={handleClose}
-              className='text-2xl font-monomaniac bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-4 px-7 rounded-xl border border-white transition-colors duration-300'>
-              Close
-            </button>
-          </div>
+          <button
+            onClick={handleClose}
+            className='text-2xl font-monomaniac bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-4 px-7 rounded-xl border border-white transition-colors duration-300'>
+            Close
+          </button>
         </div>
       </div>
     </div>

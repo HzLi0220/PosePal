@@ -28,7 +28,7 @@ const HistoryPage = () => {
     }
 
     return (
-        <div className="bg-blue">
+        <div className="bg-blue min-h-screen">
             <AboutComponent></AboutComponent>
             <div className="pt-7">
                 <Nav></Nav>

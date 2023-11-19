@@ -2,7 +2,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
-
+import { MdNotStarted } from "react-icons/md";
+import { FaCircleStop } from "react-icons/fa6";
 
 function CameraComponent() {
   let navigate = useNavigate();
@@ -243,18 +244,19 @@ function CameraComponent() {
         <p>{error}</p>
       ) : (
 
-        <div style={{ padding: '10px', height: '40vh', borderRadius: '20%', overflow: 'hidden' }}>
+        <div className="rounded-xl h-96">
 
           <video
             ref={videoRef}
             autoPlay
             playsInline
+            className="rounded-3xl h-96"
             style={{ width: '100%', height: '100%' }}
           />
         </div>
       )}
-      <div style={{ padding: '10px' }}>
-        <select style={{ color: 'black' }} name="times" id="time-select" onChange={handleSelectChange} value={selectedTime}>
+      <div className='flex justify-evenly items-center py-3'>
+        <select className="rounded-xl h-fit py-4" style={{ color: 'black' }} name="times" id="time-select" onChange={handleSelectChange} value={selectedTime}>
           <option value="">Select an option</option>
           <option value="10">10:00</option>
           <option value="20">20:00</option>
@@ -264,18 +266,19 @@ function CameraComponent() {
         <button
           onClick={start}
           style={buttonStyle}
+          className='rounded-full'
         >
-          Start
+          <MdNotStarted size={40} />
         </button>
         <button
           onClick={stop}
           style={buttonStyle}
         >
-          Stop
+          <FaCircleStop size={40} />
         </button>
       </div>
-      <div>
-        <div style={{ alignItems: 'center', fontSize: '80px' }}>{formatTime()}</div>
+      <div className='flex flex-col justify-center items-center'>
+        <div style={{ alignItems: 'center', fontSize: '125px' }}>{formatTime()}</div>
 
         <h2>{distanceMessage}</h2>
       </div>
