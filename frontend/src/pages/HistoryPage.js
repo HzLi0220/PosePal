@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HistoryCard from '../components/HistoryCard'; // Import the Card component
 
-const History = () => {
+const HistoryPage = () => {
     const [userData, setUserData] = useState(null);
     const navigate = useNavigate(); // useNavigate instead of useHistory
 
@@ -50,4 +50,4 @@ const History = () => {
     );
 };
 
-export default History;
+export default HistoryPage;

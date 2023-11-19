@@ -2,19 +2,19 @@ import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar.ln';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages';
-import Newsession from './pages/newsession';
-import SignUp from './pages/signup';
-import History from './pages/history';
-import SummaryBoard from "./pages/SummaryBoard";
+import HomePage from './pages/HomePage';
+import NewSession from './pages/NewSessionPage';
+import SignUp from './pages/SignUpPage';
+import History from './pages/HistoryPage';
+import SummaryBoard from "./components/SummaryBoardComponent";
 
 function App() {
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route exact path='/' element={<Home />} />
-        <Route path='/newsession' element={<Newsession />} />
+        <Route exact path='/' element={<HomePage />} />
+        <Route path='/newsession' element={<NewSession />} />
         <Route path='/history' element={<History />} />
         <Route path='/sign-up' element={<SignUp />} />
           <Route path='/summary' element={<SummaryBoard />} />
