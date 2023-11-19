@@ -1,7 +1,7 @@
 import React from "react";
-import CameraComponent from "./CameraComponent";
+import CameraComponent from "../components/CameraComponent";
 
-const Newsession = () => {
+const NewSession = () => {
     return (
         <>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
@@ -15,4 +15,4 @@ const Newsession = () => {
     );
 };
 
-export default Newsession;
+export default NewSession;
