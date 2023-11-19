@@ -2,6 +2,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
+import Nav from "../Navbar.ln/Nav";
+
 
 function CameraComponent() {
     let navigate = useNavigate();
@@ -240,11 +242,15 @@ function CameraComponent() {
     };
 
     return (
+        <>
+            <Nav/>
         <div style={{ position: 'relative', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center' }}>
             {error ? (
                 <p>{error}</p>
             ) : (
+
                 <div style={{ width: '350px', height: '350px', borderRadius: '60%', overflow: 'hidden' }}>
+
                     <video
                         ref={videoRef}
                         autoPlay
@@ -280,6 +286,8 @@ function CameraComponent() {
             </div>
             <audio ref = {audioRef} src = "nana.mp3" preload = "auto"></audio>
         </div>
+        </>
+
     );
 }
 
