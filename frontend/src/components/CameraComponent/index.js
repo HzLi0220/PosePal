@@ -108,11 +108,15 @@ function CameraComponent() {
         setHasStarted(false);
         const minutes = Math.floor((selectedTime * 60 - counter) / 60);
         const seconds = (selectedTime * 60 - counter) % 60;
-        const remaining_time = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-        navigate('/summary', { state: { remaining_time } });
+
+
 
         //TODO: send overdistancecount value to backend before reset
-        let percentage = (overDistanceCount)/(counter*10)
+        let percentage = (overDistanceCountRef.current * 10)/(minutes * 60 + seconds) 
+        console.log("percentage: ", percentage);
+        const remaining_time = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+        navigate('/summary', { state: { remaining_time: remaining_time, violation_Count: percentage} 
+        });
         overDistanceCountRef.current = 0;
     };
 
