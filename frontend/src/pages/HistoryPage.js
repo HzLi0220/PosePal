@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HistoryCard from '../components/HistoryCard'; // Import the Card component
+import Nav from '../components/Navbar.ln/Nav';
+import AboutComponent from '../components/AboutComponent';
 
 const HistoryPage = () => {
     const [userData, setUserData] = useState(null);
@@ -43,9 +45,12 @@ const HistoryPage = () => {
     ));
 
     return (
-        <div>
-            <h1>Here is the history for your previous sessions</h1>
-            <div>{historyItems}</div>
+        <div className="bg-blue h-screen">
+            <AboutComponent></AboutComponent>
+            <div className="pt-7">
+                <Nav></Nav>
+            </div>
+            <div  >{historyItems}</div>
         </div>
     );
 };
