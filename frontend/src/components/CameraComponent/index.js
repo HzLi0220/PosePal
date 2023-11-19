@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
-import { sendHistoryData, getUserInfo } from '../../utils/request';
 
 
 function CameraComponent() {
@@ -103,20 +102,19 @@ function CameraComponent() {
 
   };
 
-  const stop = async () => {
-    stopCamera();
-    stopCounter();
-    setHasStarted(false);
-    const minutes = Math.floor((selectedTime * 60 - counter) / 60);
-    const seconds = (selectedTime * 60 - counter) % 60;
-    const remaining_time = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-    navigate('/summary', { state: { remaining_time } });
-
-    let percentage = (overDistanceCount) / (counter * 10)
-    await sendHistoryData(remaining_time, percentage);
-    getUserInfo();
-    overDistanceCountRef.current = 0;
-  };
+    const stop = async () => {
+        stopCamera();
+        stopCounter();
+        setHasStarted(false);
+        const minutes = Math.floor((selectedTime * 60 - counter) / 60);
+        const seconds = (selectedTime * 60 - counter) % 60;
+        let percentage = (overDistanceCountRef.current * 10)/(minutes * 60 + seconds) 
+        console.log("percentage: ", percentage);
+        const remaining_time = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+        navigate('/summary', { state: { remaining_time: remaining_time, violation_Count: percentage} 
+        });
+        overDistanceCountRef.current = 0;
+    };
 
   const stopCamera = () => {
     if (streamActive) {
