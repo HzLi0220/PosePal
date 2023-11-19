@@ -9,6 +9,11 @@ function CameraComponent() {
     const [counter, setCounter] = useState(0); // Initialize counter to 0
     const [intervalId, setIntervalId] = useState(null);
     const [selectedTime, setSelectedTime] = useState('');
+    const [overDistanceCount, setOverDistanceCount] = useState(0); // New state for over distance count
+    
+    const overDistanceCountRef = useRef(0); 
+    const [hasStarted, setHasStarted] = useState(false);  // State to track if the start button has been pressed
+
 
     const handleSelectChange = (event) => {
         setSelectedTime(event.target.value);
@@ -26,23 +31,6 @@ function CameraComponent() {
             setIntervalId(id);
         }
     };
-
-    // const pauseCounter = () => {
-    //     if (isPaused) {
-    //         if (!intervalId) {
-    //             const id = setInterval(() => {
-    //                 setCounter(prevCounter => prevCounter -1 );
-    //             }, 1000);
-    //             setIntervalId(id);
-    //         }
-    //     } else {
-    //         if (intervalId) {
-    //             clearInterval(intervalId);
-    //             setIntervalId(null);
-    //         }
-    //     }
-    //     setIsPaused(!isPaused);
-    // };
 
     const stopCounter = () => {
         if (intervalId) {
@@ -104,19 +92,13 @@ function CameraComponent() {
         }
     }, [videoRef]);
 
-    // const pause = () => {
-    //     pauseCounter();
-    //     togglePlayback();
-    // };
-
-    const [overDistanceCount, setOverDistanceCount] = useState(0); // New state for over distance count
-    const [hasStarted, setHasStarted] = useState(false);  // State to track if the start button has been pressed
 
     const start = () => {
         setHasStarted(true);
         console.log("has started: ", hasStarted)
         startCounter();
-        setOverDistanceCount(0);
+        overDistanceCountRef.current = 0;
+        
     };
 
     const stop = () => {
@@ -129,7 +111,8 @@ function CameraComponent() {
         navigate('/summary', { state: { remaining_time } });
 
         //TODO: send overdistancecount value to backend before reset
-        setOverDistanceCount(0); // Reset over distance count
+        let percentage = (overDistanceCount)/(counter*10)
+        overDistanceCountRef.current = 0;
     };
 
     const stopCamera = () => {
@@ -140,16 +123,7 @@ function CameraComponent() {
         }
     };
 
-    // const togglePlayback = () => {
-    //     if (videoRef.current) {
-    //         if (isPlaying) {
-    //             videoRef.current.pause();
-    //         } else {
-    //             videoRef.current.play();
-    //         }
-    //         setIsPlaying(!isPlaying);
-    //     }
-    // };
+
 
 
     //detection logic
@@ -182,15 +156,18 @@ function CameraComponent() {
                 if (distancePixels > 70) {
                     setDistanceMessage("Please get further");
                     console.log("hasStarted: ", hasStarted)
+                    console.log("overdistance: ", overDistanceCount)
                     if (hasStarted){
                        
-                        setOverDistanceCount(count => count + 1);
+                        overDistanceCountRef.current += 1; // Updating ref
+                        console.log("Ref Count:", overDistanceCountRef.current);
+
                         audioRef.current.play(); // Start playing the audio
                         setIsAudioPlaying(true);
                         console.log("overDistanceCount", overDistanceCount)
                         
                     }
-                    
+                    return true;
                 } else {
                     setDistanceMessage("Ready to go");
                     console.log("should stop now")
@@ -215,6 +192,7 @@ function CameraComponent() {
                 setIsAudioPlaying(false);
             }
         }
+        return false;
     }
 
     useEffect(() => {
@@ -225,6 +203,24 @@ function CameraComponent() {
         return () => clearInterval(interval);
     }, [streamActive]);
 
+    useEffect(() => {
+        if (hasStarted) {
+            const interval = setInterval(() => {
+                detectEyes();
+            }, 100); // Call detectEyes every 100 milliseconds
+
+            return () => clearInterval(interval);
+        }
+    }, [hasStarted]);
+
+    useEffect(() => {
+        if (detectEyes){
+            if(hasStarted) {
+                setOverDistanceCount(count => count + 1);
+            }
+        }
+      }, [hasStarted],[overDistanceCount]);
+    
     useEffect(() => {
         async function loadModels() {
             try {
@@ -277,12 +273,6 @@ function CameraComponent() {
                 >
                     Stop
                 </button>
-                {/* <button
-                    onClick={pause}
-                    style={buttonStyle}
-                >
-                    {isPlaying ? 'Pause' : 'Resume'}
-                </button> */}
             </div>
             <div>
                 <h1>{formatTime()}</h1>
