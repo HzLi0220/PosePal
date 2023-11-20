@@ -1,9 +1,8 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
-import { MdNotStarted } from "react-icons/md";
-import { FaCircleStop } from "react-icons/fa6";
+import { MdNotStarted } from 'react-icons/md';
+import { FaCircleStop } from 'react-icons/fa6';
 
 function CameraComponent() {
   let navigate = useNavigate();
@@ -14,8 +13,7 @@ function CameraComponent() {
   const [overDistanceCount, setOverDistanceCount] = useState(0); // New state for over distance count
 
   const overDistanceCountRef = useRef(0);
-  const [hasStarted, setHasStarted] = useState(false);  // State to track if the start button has been pressed
-
+  const [hasStarted, setHasStarted] = useState(false); // State to track if the start button has been pressed
 
   const handleSelectChange = (event) => {
     setSelectedTime(event.target.value);
@@ -45,7 +43,7 @@ function CameraComponent() {
   useEffect(() => {
     if (counter === -1) {
       stop();
-      alert("Time is out");
+      alert('Time is out');
     }
   }, [counter, intervalId]);
 
@@ -67,7 +65,7 @@ function CameraComponent() {
     fontWeight: 'bold',
     cursor: 'pointer',
     margin: '5px',
-    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)'
+    boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
   };
 
   const videoRef = useRef(null);
@@ -78,14 +76,18 @@ function CameraComponent() {
   useEffect(() => {
     async function getVideo() {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: true,
+        });
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
           setStreamActive(true);
         }
       } catch (err) {
-        console.error("Error accessing the camera", err);
-        setError("Error accessing the camera. Please check your camera permissions.");
+        console.error('Error accessing the camera', err);
+        setError(
+          'Error accessing the camera. Please check your camera permissions.'
+        );
       }
     }
 
@@ -94,39 +96,41 @@ function CameraComponent() {
     }
   }, [videoRef]);
 
-
   const start = () => {
     setHasStarted(true);
     // console.log("has started: ", hasStarted)
     startCounter();
     overDistanceCountRef.current = 0;
-
   };
 
-    const stop = async () => {
-        stopCamera();
-        stopCounter();
-        setHasStarted(false);
-        const minutes = Math.floor((selectedTime * 60 - counter) / 60);
-        const seconds = (selectedTime * 60 - counter) % 60;
-        let percentage = (overDistanceCountRef.current * 10)/(minutes * 60 + seconds) 
-        console.log("percentage: ", percentage);
-        const remaining_time = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-        navigate('/summary', { state: { remaining_time: remaining_time, violation_Count: percentage} 
-        });
-        overDistanceCountRef.current = 0;
-    };
+  const stop = async () => {
+    stopCamera();
+    stopCounter();
+    setHasStarted(false);
+    const minutes = Math.floor((selectedTime * 60 - counter) / 60);
+    const seconds = (selectedTime * 60 - counter) % 60;
+    let percentage =
+      (overDistanceCountRef.current * 10) / (minutes * 60 + seconds);
+    console.log('percentage: ', percentage);
+    const remaining_time = `${minutes}:${
+      seconds < 10 ? `0${seconds}` : seconds
+    }`;
+    navigate('/summary', {
+      state: { remaining_time: remaining_time, violation_Count: percentage },
+    });
+    overDistanceCountRef.current = 0;
+  };
 
   const stopCamera = () => {
     if (streamActive) {
       const tracks = videoRef.current.srcObject.getTracks();
-      tracks.forEach(track => track.stop());
+      tracks.forEach((track) => track.stop());
       setStreamActive(false);
     }
   };
 
   //detection logic
-  const [distanceMessage, setDistanceMessage] = useState("Ready to go");
+  const [distanceMessage, setDistanceMessage] = useState('Ready to go');
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const audioRef = useRef(null);
 
@@ -135,7 +139,12 @@ function CameraComponent() {
     // console.log("audioRef.current:", audioRef.current);
     if (videoRef.current && streamActive) {
       // console.log("Detecting eyes...");
-      const detections = await faceapi.detectSingleFace(videoRef.current, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks();
+      const detections = await faceapi
+        .detectSingleFace(
+          videoRef.current,
+          new faceapi.TinyFaceDetectorOptions()
+        )
+        .withFaceLandmarks();
 
       if (detections) {
         const landmarks = detections.landmarks;
@@ -143,47 +152,56 @@ function CameraComponent() {
         const rightEye = landmarks.getRightEye();
 
         // Calculate the center point of each eye
-        const leftEyeCenter = leftEye.reduce((acc, curr) => ({ x: acc.x + curr.x / leftEye.length, y: acc.y + curr.y / leftEye.length }), { x: 0, y: 0 });
-        const rightEyeCenter = rightEye.reduce((acc, curr) => ({ x: acc.x + curr.x / rightEye.length, y: acc.y + curr.y / rightEye.length }), { x: 0, y: 0 });
+        const leftEyeCenter = leftEye.reduce(
+          (acc, curr) => ({
+            x: acc.x + curr.x / leftEye.length,
+            y: acc.y + curr.y / leftEye.length,
+          }),
+          { x: 0, y: 0 }
+        );
+        const rightEyeCenter = rightEye.reduce(
+          (acc, curr) => ({
+            x: acc.x + curr.x / rightEye.length,
+            y: acc.y + curr.y / rightEye.length,
+          }),
+          { x: 0, y: 0 }
+        );
 
         // Calculate pixel distance between the centers of the two eyes
-        const distancePixels = Math.sqrt(Math.pow(rightEyeCenter.x - leftEyeCenter.x, 2) + Math.pow(rightEyeCenter.y - leftEyeCenter.y, 2));
+        const distancePixels = Math.sqrt(
+          Math.pow(rightEyeCenter.x - leftEyeCenter.x, 2) +
+            Math.pow(rightEyeCenter.y - leftEyeCenter.y, 2)
+        );
 
         // console.log('Distance between eyes in pixels:', distancePixels);
 
         // Set the message based on the distance
         if (distancePixels > 70) {
-          setDistanceMessage("Please get further");
+          setDistanceMessage('Please get further');
           // console.log("hasStarted: ", hasStarted)
           // console.log("overdistance: ", overDistanceCount)
           if (hasStarted) {
-
             overDistanceCountRef.current += 1; // Updating ref
             // console.log("Ref Count:", overDistanceCountRef.current);
 
             audioRef.current.play(); // Start playing the audio
             setIsAudioPlaying(true);
             // console.log("overDistanceCount", overDistanceCount)
-
           }
           return true;
         } else {
-          setDistanceMessage("Ready to go");
+          setDistanceMessage('Ready to go');
           // console.log("should stop now")
           audioRef.current.pause(); // Pause the audio
           setIsAudioPlaying(false);
-
         }
-      }
-      else {
+      } else {
         // console.log("No detections");
         // Set the message when no detections are found
-        setDistanceMessage("No detections");
+        setDistanceMessage('No detections');
         audioRef.current.pause(); // Pause the audio
         setIsAudioPlaying(false);
-
       }
-
     } else {
       // Handle the case where the video or stream is not active
       if (isAudioPlaying) {
@@ -212,13 +230,17 @@ function CameraComponent() {
     }
   }, [hasStarted]);
 
-  useEffect(() => {
-    if (detectEyes) {
-      if (hasStarted) {
-        setOverDistanceCount(count => count + 1);
+  useEffect(
+    () => {
+      if (detectEyes) {
+        if (hasStarted) {
+          setOverDistanceCount((count) => count + 1);
+        }
       }
-    }
-  }, [hasStarted], [overDistanceCount]);
+    },
+    [hasStarted],
+    [overDistanceCount]
+  );
 
   useEffect(() => {
     async function loadModels() {
@@ -227,7 +249,7 @@ function CameraComponent() {
         await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
         // console.log("Models loaded successfully");
       } catch (error) {
-        console.error("Error loading models", error);
+        console.error('Error loading models', error);
       }
     }
     loadModels();
@@ -243,9 +265,7 @@ function CameraComponent() {
       {error ? (
         <p>{error}</p>
       ) : (
-
         <div className="rounded-xl h-96">
-
           <video
             ref={videoRef}
             autoPlay
@@ -255,37 +275,37 @@ function CameraComponent() {
           />
         </div>
       )}
-      <div className='flex justify-evenly items-center py-3'>
-        <select className="rounded-xl h-fit py-4" style={{ color: 'black' }} name="times" id="time-select" onChange={handleSelectChange} value={selectedTime}>
+      <div className="flex justify-evenly items-center py-3">
+        <select
+          className="rounded-xl h-fit py-4"
+          style={{ color: 'black' }}
+          name="times"
+          id="time-select"
+          onChange={handleSelectChange}
+          value={selectedTime}
+        >
           <option value="">Select an option</option>
           <option value="10">10:00</option>
           <option value="20">20:00</option>
           <option value="30">30:00</option>
           <option value="40">40:00</option>
         </select>
-        <button
-          onClick={start}
-          style={buttonStyle}
-          className='rounded-full'
-        >
+        <button onClick={start} style={buttonStyle} className="rounded-full">
           <MdNotStarted size={40} />
         </button>
-        <button
-          onClick={stop}
-          style={buttonStyle}
-        >
+        <button onClick={stop} style={buttonStyle}>
           <FaCircleStop size={40} />
         </button>
       </div>
-      <div className='flex flex-col justify-center items-center'>
-        <div style={{ alignItems: 'center', fontSize: '125px' }}>{formatTime()}</div>
+      <div className="flex flex-col justify-center items-center">
+        <div style={{ alignItems: 'center', fontSize: '125px' }}>
+          {formatTime()}
+        </div>
 
         <h2>{distanceMessage}</h2>
       </div>
       <audio ref={audioRef} src="nana.mp3" preload="auto"></audio>
     </div>
-
-
   );
 }
 
