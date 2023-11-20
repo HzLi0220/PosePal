@@ -1,4 +1,4 @@
-const userService = require('../service/userService');
+const userService = require("../service/userService");
 
 const createUserController = async (req, res) => {
   try {
@@ -11,7 +11,7 @@ const createUserController = async (req, res) => {
 
 const getUserInfoController = async (req, res) => {
   try {
-    const user = await userService.getUserInfoService('id', req.userData.id);
+    const user = await userService.getUserInfoService("id", req.userData.id);
     res.json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -32,7 +32,11 @@ const addHistoryController = async (req, res) => {
   try {
     const { id } = req.userData;
     const { duration, percentage } = req.body;
-    const result = await userService.addHistoryService(id, duration, percentage);
+    const result = await userService.addHistoryService(
+      id,
+      duration,
+      percentage,
+    );
     res.json(result);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -61,4 +65,9 @@ const addHistoryController = async (req, res) => {
 //   }
 // };
 
-module.exports = { createUserController, getUserInfoController, loginController, addHistoryController };
+module.exports = {
+  createUserController,
+  getUserInfoController,
+  loginController,
+  addHistoryController,
+};

@@ -32,7 +32,7 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        '200':
+        "200":
           description: User information retrieved successfully
           content:
             application/json:
@@ -50,7 +50,7 @@ paths:
                     type: array
                     items:
                       type: integer
-        '401':
+        "401":
           description: Unauthorized
   /api/users/login:
     post:
@@ -68,9 +68,9 @@ paths:
                 password:
                   type: string
       responses:
-        '200':
+        "200":
           description: Login successful
-        '401':
+        "401":
           description: Authentication failed
   /api/users/history:
     post:
@@ -90,9 +90,9 @@ paths:
                 detection_count:
                   type: string
       responses:
-        '200':
+        "200":
           description: User information retrieved successfully
-        '401':
+        "401":
           description: Unauthorized
 components:
   securitySchemes:

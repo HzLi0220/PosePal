@@ -8,7 +8,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "migrate": "knex migrate:latest --knexfile ./db/knexfile.js",
     "migrate:make": "knex migrate:make --migrations-directory ./db/migrations",
-    "migrate:rollback": "knex migrate:rollback --knexfile db/knexfile.js"
+    "migrate:rollback": "knex migrate:rollback --knexfile db/knexfile.js",
+    "lint": "eslint . --ext .js",
+    "format": "prettier --write ."
   },
   "keywords": [],
   "author": "",
@@ -25,6 +27,7 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "eslint": "^8.54.0",
     "nodemon": "^3.0.1"
   }
 }
