@@ -37,6 +37,9 @@ PosePal is a web application designed to encourage healthy screen habits. It mon
 *   **Backend:** [NodeJS](https://nodejs.org/en/docs)/[ExpressJS](https://expressjs.com/), [Knex](https://knexjs.org/)
 *   **Database:** [SQLite](https://www.sqlite.org/)
 
+## UI/UX Design
+https://www.figma.com/file/RC1851xk31xfTpsrlfhqD7/PosePal-UI?type=design&node-id=0%3A1&mode=design&t=FKF33qafErxNptYe-1
+
 ## Getting Started
 
 ### Prerequisites
@@ -60,18 +63,16 @@ PosePal is a web application designed to encourage healthy screen habits. It mon
   ##### `npm install`
 
   - It'll download all the packages/dependencies as defined in package.json file. Once the system completes this process, we can type below command:
+  
+  ##### `npm run migrate`
+
+  - you may need to change `filename`to `'./db/dev.sqlite3'` in  `knexfile` before doing that
 
   ##### `npm start`
 
   - Runs the app in the development mode.
   - You can start making http calls to [http://localhost:3001](http://localhost:3001)
   - you may need to change `filename`to `'./dev.sqlite3'` in  `knexfile` before doing that
-
-  ##### `npm run migrate`
-
-  - you may need to change `filename`to `'./db/dev.sqlite3'` in  `knexfile` before doing that
-
-  #### change `.env.development` to  `.env`
 
 - Running Frontend React JS Application:
 
@@ -91,7 +92,6 @@ PosePal is a web application designed to encourage healthy screen habits. It mon
   - The page will reload if you make edits.
   - You will also see any lint errors in the console.
 
-  #### change `.env.development` to  `.env`
 
 ## Roadmap
 
